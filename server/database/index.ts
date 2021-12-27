@@ -256,7 +256,8 @@ export const getAllDirectors = () => {
 };
 
 export const getAllMoviesByGenre = (genre: number) => {
-  return Genre.findAll({
+  return Genre.findOne({
+    where: {id: genre},
     include: [
       {
         model: Movies,
@@ -267,7 +268,8 @@ export const getAllMoviesByGenre = (genre: number) => {
 };
 
 export const getAllMoviesByDirector = (director: number) => {
-  return Directors.findAll({
+  return Directors.findOne({
+    where: {id: director},
     include: [
       {
         model: Movies,
@@ -278,7 +280,8 @@ export const getAllMoviesByDirector = (director: number) => {
 };
 
 export const getAllMoviesWithActor = (actor: number) => {
-  return Actors.findAll({
+  return Actors.findOne({
+    where: {id: actor},
     include: [
       {
         model: Movies,
@@ -289,7 +292,8 @@ export const getAllMoviesWithActor = (actor: number) => {
 };
 
 export const getFavoriteActors = (userId: number) => {
-  return User.findAll({
+  return User.findOne({
+    where: {id: userId},
     include: [
       {
         model: Actors,
@@ -300,7 +304,8 @@ export const getFavoriteActors = (userId: number) => {
 };
 
 export const getFavoriteDirectors = (userId: number) => {
-  return User.findAll({
+  return User.findOne({
+    where: {id: userId},
     include: [
       {
         model: Directors,
@@ -311,7 +316,8 @@ export const getFavoriteDirectors = (userId: number) => {
 };
 
 export const getFavoriteGenres = (userId: number) => {
-  return User.findAll({
+  return User.findOne({
+    where: {id: userId},
     include: [
       {
         model: Genre,
@@ -332,8 +338,8 @@ export const addUser = async (user: userObj) => {
       // console.log(user)
        User.create(
         {
-          username: username, 
-          email_Oauth: email_Oauth, 
+          username: username,
+          email_Oauth: email_Oauth,
           twitter_Oauth: twitter_Oauth,
           twitter_user_name: twitter_user_name,
           first_name: first_name,
@@ -393,11 +399,11 @@ export const addMovie = async (movie: movieObj, userId?: number) => {
 
 export const addActor = async (actor: string, movieId?: number, userId?: number) => {
   try {
-    
+
     const currentActor = await Actors.findOrCreate(
       {where: {actor_name: actor}}
     );
-  
+
     const actorId = currentActor[0].dataValues.id;
     !!movieId && Movie_Actors.create({
       actorId: actorId,

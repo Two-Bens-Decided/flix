@@ -20,7 +20,7 @@ MoviesRouter.get('/genres/:id', (req: Request, res: Response) => {
   const genreId = Number(req.params.id);
   getAllMoviesByGenre(genreId)
   .then((data: any) => {
-    const movies = data[0].dataValues.movies.map((elem: any) => elem.dataValues);
+    const movies = data.dataValues.movies.map((elem: any) => elem.dataValues);
       res.status(200).send(movies);
     })
     .catch((err: object) => {
@@ -32,7 +32,7 @@ MoviesRouter.get('/genres/:id', (req: Request, res: Response) => {
 MoviesRouter.get('/actors/:id', (req: Request, res: Response) => {
   getAllMoviesWithActor(Number(req.params.id))
     .then((data: any) => {
-      const movies = data[0].dataValues.movies.map((elem: any) => elem.dataValues);
+      const movies = data.dataValues.movies.map((elem: any) => elem.dataValues);
       res.status(200).send(movies);
     })
     .catch((err: object) => {
@@ -44,7 +44,7 @@ MoviesRouter.get('/actors/:id', (req: Request, res: Response) => {
 MoviesRouter.get('/directors/:id', (req: Request, res: Response) => {
   getAllMoviesByDirector(Number(req.params.id))
     .then((data: any) => {
-      const movies = data[0].dataValues.movies.map((elem: any) => elem.dataValues);
+      const movies = data.dataValues.movies.map((elem: any) => elem.dataValues);
       res.status(200).send(movies);
     })
     .catch((err: object) => {
