@@ -11,6 +11,7 @@ import DirectorsRouter from './api/directors';
 import GenresRouter from './api/genres';
 import TwitterRouter from './api/twitter';
 import UsersRouter from './api/users';
+import type { Request, Response } from 'express';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,6 +35,15 @@ app.use('/api/directors', DirectorsRouter);
 app.use('/api/genres', GenresRouter);
 app.use('/api/twitter', TwitterRouter);
 app.use('/api/users', UsersRouter);
+
+// fixes the "CANNOT GET component" on page refresh
+app.get('/*', (req: Request, res: Response) => {
+  res.sendFile(path.join(dist, 'index.html'), (err: any) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 
 app.listen(port,()=>{
