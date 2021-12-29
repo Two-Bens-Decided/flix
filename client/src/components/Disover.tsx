@@ -68,7 +68,7 @@ const Discover:FC = (props: any) => {
         })
   }
 
-  const saveMovie = (movie) => {
+  const saveMovie = (movie: any) => {
     axios.post('/api/movies/saveMovie/', movie)
   }
 
@@ -95,11 +95,11 @@ const Discover:FC = (props: any) => {
         {console.log(movieList)}
         {console.log(currentMovie)}
         <div>
-            <h1>Title: {currentMovie.title}</h1>
-            <iframe width="1000" height="600" src={currentMovie.trailer_url} frameBorder="0"></iframe>
+            <h1>Title: {!!currentMovie ? currentMovie.title : ''}</h1>
+            <iframe width="1000" height="600" src={!!currentMovie ? currentMovie.trailer_url: ''} frameBorder="0"></iframe>
             {/* <Button type="submit" onClick={()=>{}} variant="contained" id="outlined-basic" color="primary">Add movie</Button> */}
-            <h2>Plot: {currentMovie.description}</h2>
-            <h2>Release: {currentMovie.release_date}</h2>
+            <h2>Plot: {!!currentMovie ? currentMovie.description : ''}</h2>
+            <h2>Release: {!!currentMovie ? currentMovie.release_date : ''}</h2>
           </div>
         <Button 
           variant="contained" 
