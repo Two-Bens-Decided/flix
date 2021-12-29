@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import type {Request, Response} from 'express';
-import { getAllMovies, getAllMoviesByDirector, getAllMoviesByGenre, getAllMoviesWithActor, addMovie } from '../database/index';
+import { getAllMovies, getAllMoviesByDirector, getAllMoviesByGenre, getAllMoviesWithActor, addMovie, getMovieById } from '../database/index';
 
 const MoviesRouter = Router();
 interface MovieObj {
@@ -83,6 +83,17 @@ MoviesRouter.post('/', (req: Request, res: Response) => {
       console.error(err);
       res.sendStatus(500);
     });
+});
+
+MoviesRouter.get('/:id', (req: Request, res: Response) => {
+  getMovieById(parseInt(req.params.id))
+    .then((data: MovieObj) => {
+      res.status(200).send(data);
+    })
+    .catch((err: any) => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 });
 
 export default MoviesRouter;

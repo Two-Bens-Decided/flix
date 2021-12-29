@@ -1,3 +1,8 @@
+import { Movie } from "@material-ui/icons";
+import { profile } from "console";
+import { response } from "express";
+
+
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
@@ -43,6 +48,7 @@ const User = db.define('user', {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,
   profile_image_url: Sequelize.STRING,
+  sessionID: Sequelize.STRING,
   age: Sequelize.INTEGER
 });
 // insert into users (id, username, email_Oauth, twitter_Oauth, twitter_user_name, first_name, last_name, profile_image_url, age) values (1, 'sbelete01', 'sbelete01@gmail.com', 1234, 'sbelete_twitter', 'sam', 'belete', 'image_url', 21);
@@ -327,32 +333,60 @@ export const getFavoriteGenres = (userId: number) => {
   });
 };
 
+// Movies needs a get favorites
+export const getFavoriteMovies = (userId: number) => {
+  return User.findAll({
+    where: {userId: userId},
+    include: [
+      {
+        model: Movies,
+        through: {where: {userId: userId}}
+      }
+    ]
+  });
+};
+
 interface userObj {
   [key:string]: string;
 }
 
-export const addUser = async (user: userObj) => {
-  try {
-    const {username, email_Oauth, twitter_Oauth, twitter_user_name, first_name,
-      last_name, profile_image_url, age} = user;
-      // console.log(user)
-       User.create(
-        {
-          username: username,
-          email_Oauth: email_Oauth,
-          twitter_Oauth: twitter_Oauth,
-          twitter_user_name: twitter_user_name,
-          first_name: first_name,
-          last_name: last_name,
-          profile_image_url: profile_image_url,
-          age: age
-        }
-      );
+export const getUserById = async (userId: number) => {
+  return User.findByPk(userId);
+};
 
+
+export const addUser = async (user: any) => {
+  try {
+    const newUser = await User.findOrCreate(
+    {where: { email_Oauth: user.id },
+      defaults: {
+      username: user.displayName,
+      email_Oauth: user.id,
+      twitter_Oauth: user.twitterId,
+      twitter_user_name: user.twitterUsername,
+      first_name: user.name.givenName,
+      last_name: user.name.familyName,
+      profile_image_url: user.photos[0].value,
+      sessionID: user.number,
+      age: user.age
+      }
+    });
+    return newUser;
   }
   catch (err) {
-    console.error('already added');
+    console.log('Unable to find or create user.');
   }
+};
+
+
+export const updateUser = async (updateElement: any, userId?: number) => {
+  //update element is the object passed back that must have the key prop we want to update
+  //ex: updateElement = { number: newNumber }, to update property 'number' on the user object where id = userId
+  try {
+    const updatedUser = await User.update(updateElement, { where: { id: userId }})
+    return updatedUser;
+  }
+  catch(err) { console.log('Index: failed to update user.')}
 };
 
 
@@ -463,3 +497,10 @@ export const addGenre = async (genre: string, movieId?: number, userId?: number)
     console.error('genre not added');
   }
 };
+
+export const getMovieById = (id: number) => {
+  return Movies.findByPk(id);
+};
+
+export default User;
+
