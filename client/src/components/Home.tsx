@@ -1,6 +1,7 @@
 import React, {FC, useState, useEffect} from "react";
 import axios from 'axios';
-import Carousel from "react-material-ui-carousel";
+import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
 import CarouselItem from './CarouselItem';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
@@ -110,20 +111,41 @@ const Home:FC = (props: any) => {
     getDirectorMovies();
   }, [directors]);
 
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 10
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 6
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
   const buildCarousel = (moviesObj: MovieStorage) => {
-    return Object.keys(moviesObj).map((key) => {
+    // remove the slice here in production
+    return Object.keys(moviesObj).slice(0, 5).map((key) => {
       return (
         <>
           <h2 className="carousel-categories">{key}</h2>
           <Carousel
             className={`${key}-carousels`}
-            NextIcon={<ArrowForwardIosOutlinedIcon />}
-            PrevIcon={<ArrowBackIosOutlinedIcon />}
-            animation='slide'
-            autoPlay={false}
+            responsive={responsive}
+            infinite={true}
+            showDots={true}
+            partialVisible={true}
+            ssr={true}
           >
             {
-              moviesObj[key].slice(0, 10).map((movie: MovieObj) => <CarouselItem item={movie} key={movie.movie_id} />)
+              moviesObj[key].map((movie: MovieObj) => <CarouselItem item={movie} key={movie.movie_id} />)
             }
           </Carousel>
         </>
