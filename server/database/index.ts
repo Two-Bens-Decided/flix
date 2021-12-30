@@ -128,7 +128,7 @@ const Users_Genre = db.define('users_genre', {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
-    allowNull: false
+    allowNull: null
   }
 });
 
@@ -429,6 +429,17 @@ export const addMovie = async (movie: movieObj, userId?: number) => {
   catch (err) {
     console.error('movie not added');
   }
+};
+
+
+export const addUser_Movie = async (movieId: number, userId: number) => {
+ 
+    // console.log('movie ', movieId)
+    !!userId && Users_Movies.create({
+      userId: userId,
+      movieId: movieId
+    });
+
 };
 
 export const addActor = async (actor: string, movieId?: number, userId?: number) => {
