@@ -431,6 +431,15 @@ export const addMovie = async (movie: movieObj, userId?: number) => {
   }
 };
 
+export const addUser_Movie = async (movieId: number, userId: number) => {
+  // console.log('movie ', movieId)
+  console.log(movieId, userId)
+  !!userId && Users_Movies.create({
+    userId: userId,
+    movieId: movieId
+  });
+};
+
 export const addActor = async (actor: string, movieId?: number, userId?: number) => {
   try {
 
