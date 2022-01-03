@@ -180,6 +180,7 @@ const Profile:FC<any> = ({user}) => {
 
 
 
+
   const handleClick = (e: SyntheticEvent) => {
     // e.preventDefault();
     console.log(e.target);

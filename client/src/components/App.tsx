@@ -29,6 +29,7 @@ const App:FC = () => {
 
 
 
+
 // currentUser.photos[0].value
   //this only needs to run once, will update when the user logs out and is redirected to login page.
   useEffect(() => {
