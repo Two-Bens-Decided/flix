@@ -74,7 +74,9 @@ const Twitter:FC = (props: any) => {
               }
               style={{backgroundColor: 'white'}}
             />
-            <Button startIcon={<ArrowUpwardIcon/>} variant="contained" color="secondary" onClick={(e: any) => handleTwitterSearch(e)}>Search Movie Tweets</Button>
+            <Button startIcon={<ArrowUpwardIcon/>} variant="contained" color="secondary" onClick={(e: any) => handleTwitterSearch(e)}
+            style={{background: 'purple', color: 'white'}}
+            >Search Movie Tweets</Button>
           </form>
         </div>
 

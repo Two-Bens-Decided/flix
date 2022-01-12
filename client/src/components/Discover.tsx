@@ -143,7 +143,7 @@ const Discover:FC<any> = ({user}) => {
         <Button 
           variant="contained" 
           color="secondary" 
-          style={{backgroundColor: 'purple'}}
+          style={{background: 'purple', color: 'white'}}
           onClick={() => handleNextClick()}
         >
             Get a New Movie
@@ -151,12 +151,12 @@ const Discover:FC<any> = ({user}) => {
         <Button 
           variant="contained" 
           color="secondary" 
-          style={{backgroundColor: 'purple', float: 'right'}}
+          style={{background: 'purple', color: 'white', float: 'right'}}
           onClick={() => handleSaveClick()}
         >
             Save movie
         </Button>
-
+        <br/>
         <div className="TwitterTweets">
             {tweets.map((tweet: any) => {
                 // {console.log(tweet)}

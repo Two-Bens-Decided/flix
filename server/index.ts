@@ -76,7 +76,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
   clientID: `${google_clientID}`,
   clientSecret:`${google_clientSecret}`,
-  callbackURL: `${passportCallbackURL}:3000/auth/google/callback`
+  callbackURL: `${passportCallbackURL}`
 },
 async function(request: any, accessToken: any, refreshToken: any, profile: any, done: any) {
   //Find or Create a user
