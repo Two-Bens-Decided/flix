@@ -53,7 +53,7 @@ const Profile: FC<any> = ({ user, handleProfilePhoto, handleCoverPhoto, refreshU
     { title: 'Favorite Movies', icon: <FavoriteIcon /> },
     { title: 'Favorite Actors', icon: <SettingsAccessibilityIcon /> },
     // { title: 'Favorite Genres', icon: <TheaterComedyIcon /> },
-    // { title: 'Favorite Directors', icon: <MovieCreationIcon /> },
+    { title: 'Favorite Directors', icon: <MovieCreationIcon /> },
     { title: 'Settings', icon: <SettingsApplicationsIcon /> },
   ];
 
@@ -68,9 +68,9 @@ const Profile: FC<any> = ({ user, handleProfilePhoto, handleCoverPhoto, refreshU
     // if (currentTab === 'Favorite Genres') {
     //   return <GenreCards userId={user.id} />
     // }
-    // if (currentTab === 'Favorite Directors') {
-    //   return <DirectorCards userId={user.id} />
-    // }
+    if (currentTab === 'Favorite Directors') {
+      return <DirectorCards userId={user.id} />
+    }
     if (currentTab === 'Settings') {
       return <UserPreferences userId={user.id} />
     }
@@ -108,6 +108,54 @@ const Profile: FC<any> = ({ user, handleProfilePhoto, handleCoverPhoto, refreshU
             <br />
             <br />
             <br />
+
+            <div style={{display: 'none'}}>
+            <Grid
+              container
+              spacing={3}
+              justifyContent='center'
+              alignItems='center'
+              direction='row'
+              style={{ marginTop: '0.5rem' }}
+            >
+              <Grid item className={classes.main}>
+                <label htmlFor="icon-button-file">
+                  <Input
+                    accept="image/*"
+                    id="icon-button-file"
+                    type="file"
+                    onChange={handleProfilePhoto} />
+                  <Tooltip title='Upload a new profile photo' placement='bottom' arrow>
+                    <Button
+                      color="primary"
+                      aria-label="upload picture"
+                      variant='contained'
+                      component="span"
+                      startIcon={<PhotoCamera />}
+                    >
+                      Edit Profile Photo
+                    </Button>
+                  </Tooltip>
+                </label>
+              </Grid>
+              <Grid item>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple type="file"
+                    onChange={handleCoverPhoto} />
+                  <Tooltip title='Upload a new cover photo' placement='bottom' arrow>
+                    <Button variant="contained" component="span" startIcon={<AddPhotoAlternateIcon />}>
+                      Edit cover photo
+                    </Button>
+                  </Tooltip>
+                </label>
+              </Grid>
+            </Grid>
+            </div>
+
+
 
 
             <Typography
