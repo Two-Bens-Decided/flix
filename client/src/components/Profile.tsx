@@ -53,7 +53,7 @@ const Profile: FC<any> = ({ user, handleProfilePhoto, handleCoverPhoto, refreshU
     { title: 'Favorite Movies', icon: <FavoriteIcon /> },
     { title: 'Favorite Actors', icon: <SettingsAccessibilityIcon /> },
     // { title: 'Favorite Genres', icon: <TheaterComedyIcon /> },
-    { title: 'Favorite Directors', icon: <MovieCreationIcon /> },
+    // { title: 'Favorite Directors', icon: <MovieCreationIcon /> },
     { title: 'Settings', icon: <SettingsApplicationsIcon /> },
   ];
 
@@ -68,9 +68,9 @@ const Profile: FC<any> = ({ user, handleProfilePhoto, handleCoverPhoto, refreshU
     // if (currentTab === 'Favorite Genres') {
     //   return <GenreCards userId={user.id} />
     // }
-    if (currentTab === 'Favorite Directors') {
-      return <DirectorCards userId={user.id} />
-    }
+    // if (currentTab === 'Favorite Directors') {
+    //   return <DirectorCards userId={user.id} />
+    // }
     if (currentTab === 'Settings') {
       return <UserPreferences userId={user.id} />
     }
